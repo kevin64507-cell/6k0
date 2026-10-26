@@ -97,30 +97,3 @@ async def send_qr(update: Update, context: ContextTypes.DEFAULT_TYPE, data: str,
         await message.reply_text("❌ Couldn't create that QR code. Try shorter text.")
         return
     await message.reply_photo(
-        photo=image,
-        caption=caption or "✅ Here's your QR code!",
-        reply_markup=main_menu(),
-    )
-
-
-# ---------- basic commands ----------
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.effective_message.reply_text(
-        WELCOME, parse_mode="Markdown", reply_markup=main_menu()
-    )
-
-
-async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.effective_message.reply_text(HELP, parse_mode="Markdown")
-
-
-async def text_to_qr(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await send_qr(update, context, update.message.text.strip())
-
-
-# ---------- settings ----------
-async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    color = context.user_data.get("color", "black").title()
-    size = context.user_data.get("size", "medium").title()
-    await update.effective_message.reply_text(
-        f"🎨 *Settings*\nColor: *{color}* | Size:
